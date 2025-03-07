@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Fidlle.Application\Fidlle.Application.csproj" />
     <ProjectReference Include="..\Fidlle.Domain\Fidlle.Domain.csproj" />
-    <ProjectReference Include="..\Shared\Fidlle.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>

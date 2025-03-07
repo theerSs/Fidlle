@@ -1,4 +1,4 @@
-﻿namespace Fidlle.Shared.Interfaces
+﻿namespace Fidlle.Application.Interfaces
 {
     public interface IPasswordService
     {

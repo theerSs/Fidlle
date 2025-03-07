@@ -1,14 +1,7 @@
 ﻿namespace Fidlle.Api.Middlewares
 {
-    public class SecurityHeadersMiddleware
+    public class SecurityHeadersMiddleware(RequestDelegate next)
     {
-        private readonly RequestDelegate _next;
-
-        public SecurityHeadersMiddleware(RequestDelegate next)
-        {
-            _next = next;
-        }
-
         public async Task InvokeAsync(HttpContext context)
         {
             context.Response.Headers.Append("X-Content-Type-Options", "nosniff"); 
@@ -19,7 +12,7 @@
             context.Response.Headers.Append("Content-Security-Policy",
                 "default-src 'self'; script-src 'self'; style-src 'self';");
 
-            await _next(context);
+            await next(context);
         }
     }
 

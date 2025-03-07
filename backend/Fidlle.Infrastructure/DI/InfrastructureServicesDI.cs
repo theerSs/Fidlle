@@ -1,5 +1,5 @@
-﻿using Fidlle.Infrastructure.Services;
-using Fidlle.Shared.Interfaces;
+﻿using Fidlle.Application.Interfaces;
+using Fidlle.Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Fidlle.Application.DI

@@ -1,9 +1,9 @@
-﻿using Fidlle.Shared.Exceptions;
+﻿using Fidlle.Application.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 
-namespace Fidlle.Api.Handlers
+namespace Fidlle.Api.Middlewares
 {
-    public class ExceptionHandler(ILogger<ExceptionHandler> logger) : IExceptionHandler
+    public class ExceptionHandlerMiddleware(ILogger<ExceptionHandlerMiddleware> logger) : IExceptionHandler
     {
         public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
         {

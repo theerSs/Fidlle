@@ -1,4 +1,4 @@
-﻿using Fidlle.Shared.Interfaces;
+﻿using Fidlle.Application.Interfaces;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.Extensions.Configuration;
 using System.Security.Cryptography;

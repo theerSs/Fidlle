@@ -1,8 +1,8 @@
-﻿using Fidlle.Application.IRepositories;
+﻿using Fidlle.Application.Exceptions;
+using Fidlle.Application.Interfaces;
+using Fidlle.Application.IRepositories;
 using Fidlle.Application.Services.Interfaces;
 using Fidlle.Domain.Entities;
-using Fidlle.Shared.Exceptions;
-using Fidlle.Shared.Interfaces;
 
 namespace Fidlle.Application.Services.Implementations
 {

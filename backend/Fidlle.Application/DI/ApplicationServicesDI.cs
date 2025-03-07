@@ -9,7 +9,6 @@ namespace Fidlle.Application.DI
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IClaimsService, ClaimsService>();
             return services;
         }
     }

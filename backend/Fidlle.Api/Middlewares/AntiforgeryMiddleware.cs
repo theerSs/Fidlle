@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Antiforgery;
-using Fidlle.Shared.Exceptions;
+using Fidlle.Application.Exceptions;
 
 namespace Fidlle.Api.Middlewares
 {

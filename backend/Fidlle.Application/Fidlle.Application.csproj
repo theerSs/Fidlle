@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Fidlle.Domain\Fidlle.Domain.csproj" />
-    <ProjectReference Include="..\Shared\Fidlle.Shared.csproj" />
   </ItemGroup>
 
 </Project>

@@ -10,6 +10,7 @@ builder.Services.AddApiLayer();
 builder.Services.AddApplicationLayer();
 builder.Services.AddInfrastructureLayer(builder.Configuration);
 
+
 var app = builder.Build();
 app.UseExceptionHandler(_ => { });
 app.UseMiddleware<SecurityHeadersMiddleware>();

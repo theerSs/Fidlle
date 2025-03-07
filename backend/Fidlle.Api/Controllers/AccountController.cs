@@ -5,12 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace Fidlle.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountController(IAntiforgery antiforgery, IUserService userService, IClaimsService claimsService) : ControllerBase
+    public class AccountController(IAntiforgery antiforgery, IUserService userService) : ControllerBase
     {
         [HttpGet("csrf-token")]
         public IActionResult GetCsrfToken()
@@ -32,8 +33,14 @@ namespace Fidlle.Api.Controllers
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
             var userId = await userService.AuthenticateAsync(loginDto.Email, loginDto.Password);
-           
-            var claimsPrincipal = claimsService.CreateClaimsPrincipal(userId.Value, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            var claims = new List<Claim>
+            {
+                new(ClaimTypes.NameIdentifier, userId.Value.ToString())
+            };
+
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
 
             return Ok();
