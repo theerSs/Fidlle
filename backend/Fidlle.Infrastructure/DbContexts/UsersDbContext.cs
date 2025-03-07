@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Fidlle.Infrastructure.DbContexts
 {
-    public class AppDbContext(DbContextOptions options) : DbContext(options)
+    public class UsersDbContext(DbContextOptions options) : DbContext(options)
     {
        public DbSet<User> Users { get; set; }
 
