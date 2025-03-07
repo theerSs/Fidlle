@@ -10,13 +10,16 @@ services:
 
   backend:
     build:
-      context: ./backend/Fidlle.Api
+      context: ./backend
     ports:
       - "5000:5000"
     volumes:
-      - backend-data:/app
+      - backend-data:/app/data
     depends_on:
       - postgres
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__Default=Host=postgres;Port=5432;Database=Fidlle;Username=admin;Password=admin
 
   postgres:
     image: postgres:15
@@ -32,4 +35,3 @@ services:
 volumes:
   backend-data:
   postgres-data:
-

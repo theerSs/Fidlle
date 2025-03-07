@@ -9,11 +9,11 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /workspace
 
 # Copy the solution file and restore dependencies
-COPY ["../Fidlle.sln", "./"]
-COPY ["Fidlle.Application/Fidlle.Application.csproj", "Fidlle.Application/"]
-COPY ["../Fidlle.Domain/Fidlle.Domain.csproj", "Fidlle.Domain/"]
-COPY ["../Fidlle.Infrastructure/Fidlle.Infrastructure.csproj", "Fidlle.Infrastructure/"]
-COPY ["Fidlle.Api.csproj", "./"]
+COPY ["./Fidlle.sln", "./"]
+COPY ["./Fidlle.Application/Fidlle.Application.csproj", "Fidlle.Application/"]
+COPY ["./Fidlle.Domain/Fidlle.Domain.csproj", "Fidlle.Domain/"]
+COPY ["./Fidlle.Infrastructure/Fidlle.Infrastructure.csproj", "Fidlle.Infrastructure/"]
+COPY ["./Fidlle.Api/Fidlle.Api.csproj", "Fidlle.Api/"]
 RUN dotnet restore "./Fidlle.sln"
 
 # Copy the entire project source
