@@ -18,6 +18,8 @@ namespace Fidlle.Infrastructure.DI
                 options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
             services.AddDbContext<QuestsContext>(options =>
                 options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<SkillsContext>(options =>
+                options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
             return services;
         }
