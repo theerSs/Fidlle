@@ -6,5 +6,8 @@
         public required string Email { get; set; }
         public required string Username { get; set; }
         public required string PasswordHash { get; set; }
+        public DateTime CreatedOn { get; set; } = DateTime.Now;
+
+        public ICollection<Character> Characters { get; set; } = [];
     }
 }

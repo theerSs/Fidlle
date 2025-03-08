@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Fidlle.Infrastructure.Repositories
 {
-    public class UserRepository(AppDbContext context) : IUserRepository
+    public class UserRepository(UsersContext context) : IUserRepository
     {
         public async Task CreateUserAsync(User user)
         {
