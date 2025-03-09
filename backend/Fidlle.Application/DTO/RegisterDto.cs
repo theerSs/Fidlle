@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Fidlle.Application.DTO
+﻿namespace Fidlle.Application.DTO
 {
     public class RegisterDto
     {

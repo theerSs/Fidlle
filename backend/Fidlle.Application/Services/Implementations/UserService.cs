@@ -1,4 +1,5 @@
-﻿using Fidlle.Application.Exceptions;
+﻿using Fidlle.Application.DTO;
+using Fidlle.Application.Exceptions;
 using Fidlle.Application.Interfaces;
 using Fidlle.Application.IRepositories;
 using Fidlle.Application.Services.Interfaces;
@@ -8,10 +9,10 @@ namespace Fidlle.Application.Services.Implementations
 {
     public class UserService(IUserRepository userRepository, IPasswordService passwordService) : IUserService
     {
-        public async Task<Guid?> AuthenticateAsync(string email, string password)
+        public async Task<Guid?> AuthenticateAsync(LoginDto loginDto)
         {
-            var user = await userRepository.GetUserByEmailAsync(email);
-            if (user == null || !passwordService.VerifyPassword(user.PasswordHash, password))
+            var user = await userRepository.GetUserByEmailAsync(loginDto.Email);
+            if (user == null || !passwordService.VerifyPassword(user.PasswordHash, loginDto.Password))
             {
                 throw new UnauthorizedAccessException("Wrong email or password");
             }
@@ -19,24 +20,24 @@ namespace Fidlle.Application.Services.Implementations
             return user.Id;
         }
 
-        public async Task<bool> CreateUserAsync(string username, string email, string password)
+        public async Task<bool> CreateUserAsync(RegisterDto registerDto)
         {
-            var existingEmailUser = await userRepository.GetUserByEmailAsync(email);
+            var existingEmailUser = await userRepository.GetUserByEmailAsync(registerDto.Email);
             if (existingEmailUser != null)
             {
                 throw new BadRequestException("A user with this email already exists.");
             }
 
-            var existingUsernameUser = await userRepository.GetUserByUsernameAsync(username);
+            var existingUsernameUser = await userRepository.GetUserByUsernameAsync(registerDto.Username);
             if (existingUsernameUser != null){
                 throw new BadRequestException("A user with this username already exists.");
             }
 
             var user = new User
             {
-                Email = email,
-                Username = username,
-                PasswordHash = passwordService.HashPassword(password)
+                Email = registerDto.Email,
+                Username = registerDto.Username,
+                PasswordHash = passwordService.HashPassword(registerDto.Password)
             };
 
             await userRepository.CreateUserAsync(user);

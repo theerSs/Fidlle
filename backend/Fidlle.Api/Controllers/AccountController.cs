@@ -24,7 +24,7 @@ namespace Fidlle.Api.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
         {
-            await userService.CreateUserAsync(registerDto.Username, registerDto.Email, registerDto.Password);
+            await userService.CreateUserAsync(registerDto);
 
             return Created(string.Empty, null);
         }
@@ -32,7 +32,7 @@ namespace Fidlle.Api.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
-            var userId = await userService.AuthenticateAsync(loginDto.Email, loginDto.Password);
+            var userId = await userService.AuthenticateAsync(loginDto);
 
             var claims = new List<Claim>
             {

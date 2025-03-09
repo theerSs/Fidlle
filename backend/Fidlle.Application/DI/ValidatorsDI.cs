@@ -16,6 +16,7 @@ namespace Fidlle.Application.DI
 
             services.AddTransient<IValidator<RegisterDto>, RegisterDtoValidator>();
             services.AddTransient<IValidator<LoginDto>, LoginDtoValidator>();
+            services.AddTransient<IValidator<CreateCharacterDto>, CreateCharacterDtoValidator>();
 
             return services;
         }

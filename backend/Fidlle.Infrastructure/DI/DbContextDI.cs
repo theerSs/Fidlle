@@ -10,7 +10,7 @@ namespace Fidlle.Infrastructure.DI
     {
         public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<UsersContext>(options =>
+            services.AddDbContext<AppDbContext>(options =>
                 options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
             return services;
