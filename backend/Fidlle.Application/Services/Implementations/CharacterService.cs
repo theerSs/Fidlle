@@ -9,7 +9,7 @@ namespace Fidlle.Application.Services.Implementations
 {
     public class CharacterService(ICharacterRepository characterRepository, IUserRepository userRepository) : ICharacterService
     {
-        public async Task<Character> CreateCharacterAsync(CreateCharacterDto createCharacterDto, Guid userId)
+        public async Task<CharacterDto> CreateCharacterAsync(CreateCharacterDto createCharacterDto, Guid userId)
         {
             var user = await userRepository.GetUserByIdAsync(userId) ?? throw new NotFoundException("User not found");
 
@@ -25,7 +25,26 @@ namespace Fidlle.Application.Services.Implementations
             await characterRepository.AddAsync(character);
             await characterRepository.SaveChangesAsync();
 
-            return character;
+            return new CharacterDto
+            {
+                Id = character.Id,
+                Name = character.Name,
+                Class = character.Class,
+                Level = character.Level
+            };
+        }
+
+        public async Task<CharacterDto> GetCharacterByIdAsync(Guid characterId)
+        {
+            var character = await characterRepository.GetBydIdAsync(characterId) ?? throw new NotFoundException("Character not found");
+
+            return new CharacterDto
+            {
+                Id = character.Id,
+                Name = character.Name,
+                Class = character.Class,
+                Level = character.Level
+            };
         }
     }
 }

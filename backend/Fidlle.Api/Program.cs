@@ -9,10 +9,6 @@ builder.Services.AddControllers();
 builder.Services.AddApiLayer();
 builder.Services.AddApplicationLayer();
 builder.Services.AddInfrastructureLayer(builder.Configuration);
-builder.Services.AddControllers().AddJsonOptions(options =>
-{
-    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
-});
 
 
 builder.Services.AddCors(options =>

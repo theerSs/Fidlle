@@ -30,7 +30,9 @@ namespace Fidlle.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCharacter(Guid id)
         {
-            return Ok();
+            var characterDto = await characterService.GetCharacterByIdAsync(id);
+
+            return Ok(characterDto);
         }
     }
 }
