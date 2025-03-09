@@ -16,6 +16,11 @@ namespace Fidlle.Infrastructure.Repositories
             return await context.Characters.FirstOrDefaultAsync(c => c.Id == characterId);
         }
 
+        public async Task<IEnumerable<Character>> GetUserCharactersAsync(Guid userId)
+        {
+            return await context.Characters.Where(c => c.UserId == userId).ToListAsync();
+        }
+
         public async Task SaveChangesAsync()
         {
             await context.SaveChangesAsync();

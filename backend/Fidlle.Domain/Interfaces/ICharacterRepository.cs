@@ -6,6 +6,7 @@ namespace Fidlle.Domain.Interfaces
     {
         Task AddAsync(Character character);
         Task<Character?> GetBydIdAsync(Guid characterId);
+        Task<IEnumerable<Character>> GetUserCharactersAsync(Guid userId);
         Task SaveChangesAsync();
     }
 }

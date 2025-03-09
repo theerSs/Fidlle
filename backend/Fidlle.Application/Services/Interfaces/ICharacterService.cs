@@ -5,7 +5,8 @@ namespace Fidlle.Application.Services.Interfaces
 {
     public interface ICharacterService
     {
-        Task<CharacterDto> CreateCharacterAsync(CreateCharacterDto createCharacterDto, Guid userId);
-        Task<CharacterDto> GetCharacterByIdAsync(Guid characterId);
+        Task<CharacterDetailsDto> CreateCharacterAsync(CreateCharacterDto createCharacterDto, Guid userId);
+        Task<CharacterDetailsDto> GetCharacterByIdAsync(Guid characterId);
+        Task<IEnumerable<CharacterListItemDto>> GetUserCharactersAsync(Guid userId);
     }
 }

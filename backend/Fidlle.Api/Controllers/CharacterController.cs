@@ -24,11 +24,27 @@ namespace Fidlle.Api.Controllers
 
             var character = await characterService.CreateCharacterAsync(createCharacterDto, userId);
 
-            return CreatedAtAction(nameof(GetCharacter), new { id = character.Id }, character);
+            return CreatedAtAction(nameof(GetCharacterDetails), new { id = character.Id }, character);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetCharacter(Guid id)
+        public async Task<IActionResult> GetUserCharactersList()
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+            {
+                return Unauthorized();
+            }
+
+            var userId = Guid.Parse(userIdClaim.Value);
+
+            var characters = await characterService.GetUserCharactersAsync(userId);
+
+            return Ok(characters);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCharacterDetails(Guid id)
         {
             var characterDto = await characterService.GetCharacterByIdAsync(id);
 

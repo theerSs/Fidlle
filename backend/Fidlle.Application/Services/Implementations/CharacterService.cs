@@ -9,7 +9,7 @@ namespace Fidlle.Application.Services.Implementations
 {
     public class CharacterService(ICharacterRepository characterRepository, IUserRepository userRepository) : ICharacterService
     {
-        public async Task<CharacterDto> CreateCharacterAsync(CreateCharacterDto createCharacterDto, Guid userId)
+        public async Task<CharacterDetailsDto> CreateCharacterAsync(CreateCharacterDto createCharacterDto, Guid userId)
         {
             var user = await userRepository.GetUserByIdAsync(userId) ?? throw new NotFoundException("User not found");
 
@@ -25,7 +25,7 @@ namespace Fidlle.Application.Services.Implementations
             await characterRepository.AddAsync(character);
             await characterRepository.SaveChangesAsync();
 
-            return new CharacterDto
+            return new CharacterDetailsDto
             {
                 Id = character.Id,
                 Name = character.Name,
@@ -34,11 +34,24 @@ namespace Fidlle.Application.Services.Implementations
             };
         }
 
-        public async Task<CharacterDto> GetCharacterByIdAsync(Guid characterId)
+        public async Task<IEnumerable<CharacterListItemDto>> GetUserCharactersAsync(Guid userId)
+        {
+            var characters = await characterRepository.GetUserCharactersAsync(userId);
+
+            return characters.Select(c => new CharacterListItemDto
+            {
+                Id = c.Id,
+                Name = c.Name,
+                Class = c.Class,
+                Level = c.Level
+            });
+        }
+
+        public async Task<CharacterDetailsDto> GetCharacterByIdAsync(Guid characterId)
         {
             var character = await characterRepository.GetBydIdAsync(characterId) ?? throw new NotFoundException("Character not found");
 
-            return new CharacterDto
+            return new CharacterDetailsDto
             {
                 Id = character.Id,
                 Name = character.Name,
