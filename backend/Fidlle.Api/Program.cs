@@ -10,8 +10,19 @@ builder.Services.AddApiLayer();
 builder.Services.AddApplicationLayer();
 builder.Services.AddInfrastructureLayer(builder.Configuration);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp", builder =>
+    {
+        builder.WithOrigins("http://localhost:4200")
+               .AllowAnyHeader()
+               .AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
+
+app.UseCors("AllowAngularApp");
 app.UseExceptionHandler(_ => { });
 app.UseMiddleware<SecurityHeadersMiddleware>();
 app.UseMiddleware<AntiforgeryMiddleware>();
