@@ -13,7 +13,6 @@ namespace Fidlle.Application.Services.Implementations
         public async Task<Guid?> AuthenticateAsync(LoginDto loginDto)
         {
             var user = await userRepository.GetUserByEmailAsync(loginDto.Email);
-            Console.WriteLine(user);
             if (user == null || !passwordService.VerifyPassword(user.PasswordHash, loginDto.Password))
             {
                 throw new UnauthorizedAccessException("Wrong email or password");
