@@ -1,4 +1,5 @@
-﻿using Fidlle.Application.DTO;
+﻿using AutoMapper;
+using Fidlle.Application.DTO;
 using Fidlle.Application.Exceptions;
 using Fidlle.Application.Interfaces;
 using Fidlle.Application.IRepositories;
@@ -7,11 +8,12 @@ using Fidlle.Domain.Entities;
 
 namespace Fidlle.Application.Services.Implementations
 {
-    public class UserService(IUserRepository userRepository, IPasswordService passwordService) : IUserService
+    public class UserService(IUserRepository userRepository, IPasswordService passwordService, IMapper mapper) : IUserService
     {
         public async Task<Guid?> AuthenticateAsync(LoginDto loginDto)
         {
             var user = await userRepository.GetUserByEmailAsync(loginDto.Email);
+            Console.WriteLine(user);
             if (user == null || !passwordService.VerifyPassword(user.PasswordHash, loginDto.Password))
             {
                 throw new UnauthorizedAccessException("Wrong email or password");
@@ -33,12 +35,8 @@ namespace Fidlle.Application.Services.Implementations
                 throw new BadRequestException("A user with this username already exists.");
             }
 
-            var user = new User
-            {
-                Email = registerDto.Email,
-                Username = registerDto.Username,
-                PasswordHash = passwordService.HashPassword(registerDto.Password)
-            };
+            var user = mapper.Map<User>(registerDto);
+            user.PasswordHash = passwordService.HashPassword(registerDto.Password);
 
             await userRepository.CreateUserAsync(user);
             await userRepository.SaveChangesAsync();

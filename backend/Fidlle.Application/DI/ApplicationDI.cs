@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace Fidlle.Application.DI
 {
@@ -8,6 +9,7 @@ namespace Fidlle.Application.DI
         {
             services.AddApplicationServices();
             services.AddValidators();
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
             return services;
         }
     }
