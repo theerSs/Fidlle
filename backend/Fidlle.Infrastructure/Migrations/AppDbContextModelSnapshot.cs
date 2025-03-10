@@ -85,17 +85,12 @@ namespace Fidlle.Infrastructure.Migrations
             modelBuilder.Entity("Fidlle.Domain.Entities.Character", b =>
                 {
                     b.HasOne("Fidlle.Domain.Entities.User", "User")
-                        .WithMany("Characters")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Fidlle.Domain.Entities.User", b =>
-                {
-                    b.Navigation("Characters");
                 });
 #pragma warning restore 612, 618
         }

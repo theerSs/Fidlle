@@ -28,9 +28,6 @@ namespace Fidlle.Infrastructure.DbContexts
                 entity.HasKey(c => c.Id);
                 entity.Property(c => c.Name).IsRequired();
                 entity.Property(c => c.Class).IsRequired();
-                entity.HasOne(c => c.User)
-                      .WithMany(u => u.Characters)
-                      .HasForeignKey(c => c.UserId);
             });
         }
     }

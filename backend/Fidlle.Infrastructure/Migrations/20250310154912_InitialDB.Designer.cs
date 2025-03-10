@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Fidlle.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250309143209_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250310154912_InitialDB")]
+    partial class InitialDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -88,17 +88,12 @@ namespace Fidlle.Infrastructure.Migrations
             modelBuilder.Entity("Fidlle.Domain.Entities.Character", b =>
                 {
                     b.HasOne("Fidlle.Domain.Entities.User", "User")
-                        .WithMany("Characters")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Fidlle.Domain.Entities.User", b =>
-                {
-                    b.Navigation("Characters");
                 });
 #pragma warning restore 612, 618
         }
